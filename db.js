@@ -1,20 +1,20 @@
 const mysql = require('mysql2');
-require('dotenv').config(); // loads .env config into process.env
+require('dotenv').config();
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASS || '',
-  database: process.env.DB_NAME || 'school_management'
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
 });
 
-connection.connect(err => {
+db.connect(err => {
   if (err) {
-    console.error('Error connecting to MySQL:', err.message);
-    process.exit(1);
+    console.error('❌ Error connecting to MySQL:', err.message);
   } else {
-    console.log('✅ Connected to MySQL database');
+    console.log('✅ Connected to MySQL database on Railway');
   }
 });
 
-module.exports = connection;
+module.exports = db;
